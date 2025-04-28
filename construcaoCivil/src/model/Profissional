@@ -1,4 +1,4 @@
-package br.com.charlles;
+package model;
 
 public class Profissional {
     
