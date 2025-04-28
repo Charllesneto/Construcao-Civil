@@ -2,7 +2,7 @@
 package model;
 
 public class Cliente {
-        private int idCliente;
+    private int idCliente;
     private String nome;
     private String tipoCliente;
     private String cpfCnpj;
