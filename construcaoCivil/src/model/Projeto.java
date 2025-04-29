@@ -24,3 +24,68 @@ public class Projeto {
         this.fkClienteProjeto = fkClienteProjeto;
         this.fkProfissionalProjeto = fkProfissionalProjeto;
     }
+    // Getters e Setters
+    public int getIdProjeto() {
+        return idProjeto;
+    }
+
+    public void setIdProjeto(int idProjeto) {
+        this.idProjeto = idProjeto;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(String dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public String getDataFimPrevista() {
+        return dataFimPrevista;
+    }
+
+    public void setDataFimPrevista(String dataFimPrevista) {
+        this.dataFimPrevista = dataFimPrevista;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getFkClienteProjeto() {
+        return fkClienteProjeto;
+    }
+
+    public void setFkClienteProjeto(int fkClienteProjeto) {
+        this.fkClienteProjeto = fkClienteProjeto;
+    }
+
+    public int getFkProfissionalProjeto() {
+        return fkProfissionalProjeto;
+    }
+
+    public void setFkProfissionalProjeto(int fkProfissionalProjeto) {
+        this.fkProfissionalProjeto = fkProfissionalProjeto;
+    }
+
