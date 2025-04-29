@@ -89,3 +89,18 @@ public class Projeto {
         this.fkProfissionalProjeto = fkProfissionalProjeto;
     }
 
+    // Método toString para facilitar a exibição do projeto
+    @Override
+    public String toString() {
+        return "Projeto{" +
+                "idProjeto=" + idProjeto +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", dataInicio='" + dataInicio + '\'' +
+                ", dataFimPrevista='" + dataFimPrevista + '\'' +
+                ", status='" + status + '\'' +
+                ", fkClienteProjeto=" + fkClienteProjeto +
+                ", fkProfissionalProjeto=" + fkProfissionalProjeto +
+                '}';
+    }
+}
