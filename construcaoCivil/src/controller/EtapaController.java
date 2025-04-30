@@ -18,7 +18,8 @@ public class EtapaController {
     // Create
     public void adicionarEtapa(Etapa etapa) {
         String sql = "INSERT INTO etapa (id_etapa, descricao, status, data_inicio, data_fim_prevista) VALUES (?,?,?,?,?)";
-        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, etapa.getIdEtapa());
             stmt.setString(2, etapa.getDescricao());
@@ -40,7 +41,7 @@ public class EtapaController {
         String sql = "SELECT * FROM etapa";
 
         try (Connection conn = Conexao.conectar();
-             Statement stmt = conn.createStatement();
+             Statement stmt = conn.createStatement();      
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
