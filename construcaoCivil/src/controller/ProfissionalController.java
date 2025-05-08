@@ -62,6 +62,27 @@ public class ProfissionalController {
         }
         return lista;
     }
+    // metodo para atualizar os dados de profissicional, abre a conecxão, substitui os dados e retorna se houve mudança nas linhas afetadas.
+     
+    public boolean atualizarProfissional(Profissional profissional) {
+        String sql = "UPDATE profissional SET nome = ?, cargo = ?, cpf = ?, telefone = ? WHERE id_profissional = ?";
+
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, profissional.getNome());
+            stmt.setString(2, profissional.getCargo());
+            stmt.setString(3, profissional.getCpf());
+            stmt.setString(4, profissional.getTelefone());
+            stmt.setInt(5, profissional.getIdProfissional());
+
+            int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar profissional: " + e.getMessage());
+            return false;
+        }
+    }
 
     
 
