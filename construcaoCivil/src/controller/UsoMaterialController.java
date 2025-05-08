@@ -68,5 +68,55 @@ public class UsoMaterialController {
         return usos;
     }
     
+    // metodo para atualizar os materiais ultilizados 
     
+    public boolean atualizarUso(UsoMaterial uso) {
+        String sql = "UPDATE uso_material SET id_material = ?, id_etapa = ?, quantidade = ? WHERE id_uso_material = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, uso.getMaterial().getIdMaterial());
+            stmt.setInt(2, uso.getEtapa().getIdEtapa());
+            stmt.setDouble(3, uso.getQuantidade());
+            stmt.setInt(4, uso.getIdUsoMaterial());
+
+            int linhas = stmt.executeUpdate();
+            return linhas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar uso de material: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    // metodo para buscar por ID um material em especifico
+    
+     public UsoMaterial buscarPorId(int idUso) {
+        String sql = "SELECT * FROM uso_material WHERE id_uso_material = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idUso);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Material material = materialController.buscarPorId(rs.getInt("id_material"));
+                Etapa etapa = etapaController.buscarPorId(rs.getInt("id_etapa"));
+
+                return new UsoMaterial(
+                    rs.getInt("id_uso_material"),
+                    material,
+                    etapa,
+                    rs.getDouble("quantidade")
+                );
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar uso de material por ID: " + e.getMessage());
+        }
+
+        return null;
+    }
 }
