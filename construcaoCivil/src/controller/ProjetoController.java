@@ -95,4 +95,49 @@ public class ProjetoController {
             return false;
         }
     }
+    // metodo para deletar o projeto pelo ID.
+     public boolean removerProjeto(int idProjeto) {
+        String sql = "DELETE FROM projeto WHERE id_projeto = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idProjeto);
+            int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao remover projeto: " + e.getMessage());
+            return false;
+        }
+    }
+    // metodo para fazer uma busca detalhada por id.
+     
+     public Projeto buscarPorId(int idProjeto) {
+        String sql = "SELECT * FROM projeto WHERE id_projeto = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idProjeto);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Cliente cliente = clienteController.buscarPorId(rs.getInt("id_cliente"));
+                return new Projeto(
+                    rs.getInt("id_projeto"),
+                    rs.getString("nome"),
+                    rs.getString("descricao"),
+                    rs.getDate("data_inicio").toString(),
+                    rs.getDate("data_fim_prevista").toString(),
+                    rs.getString("status"),
+                    cliente
+                );
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar projeto por ID: " + e.getMessage());
+        }
+        return null;
+    }
 }
