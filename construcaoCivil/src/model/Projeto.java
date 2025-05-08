@@ -9,12 +9,14 @@ public class Projeto {
     private String status;
     private Projeto projeto;
     private Profissional profissional;
+    private Cliente cliente;
 
     // Construtor vazio
     public Projeto() {}
 
     // Construtor com parâmetros
-    public Projeto(int idProjeto, String nome, String descricao, String dataInicio, String dataFimPrevista, String status,Projeto projeto,Profissional profissional) {
+    public Projeto(int idProjeto, String nome, String descricao, String dataInicio, String dataFimPrevista, String status,
+            Projeto projeto,Profissional profissional,Cliente cliente) {
         this.idProjeto = idProjeto;
         this.nome = nome;
         this.descricao = descricao;
@@ -23,6 +25,15 @@ public class Projeto {
         this.status = status;
         this.projeto = projeto;
         this.profissional = profissional;
+        this.cliente = cliente;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Projeto getProjeto() {
