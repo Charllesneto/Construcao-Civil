@@ -57,6 +57,25 @@ public List<Cliente> listarClientes() {
         }
         return lista;
     }
+// metodo para atualizar os dados do cliente, retorna true se houver atualização em pelo menos uma linha da tabela.
+    public boolean atualizarCliente(Cliente cliente) {
+        String sql = "UPDATE cliente SET nome = ?, tipo_cliente = ?, cpf_cnpj = ?, telefone = ? WHERE id_cliente = ?";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getTipoCliente());
+            stmt.setString(3, cliente.getCpfCnpj());
+            stmt.setString(4, cliente.getTelefone());
+            stmt.setInt(5, cliente.getIdCliente());
 
+            int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar cliente: " + e.getMessage());
+            return false;
+        }
+    }
+    
 }
