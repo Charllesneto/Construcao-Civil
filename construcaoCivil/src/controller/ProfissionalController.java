@@ -26,7 +26,7 @@ public class ProfissionalController {
             stmt.setString(2, profissional.getNome());
             stmt.setString(3, profissional.getCargo());
             stmt.setString(4, profissional.getCpf());
-            stmt.setString(5, profissional.get 
+            stmt.setString(5, profissional.getTelefone());
 
             stmt.executeUpdate();
             System.out.println("Profissional cadastrado com sucesso!");
