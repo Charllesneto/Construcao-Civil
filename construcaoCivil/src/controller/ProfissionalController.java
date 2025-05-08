@@ -64,6 +64,7 @@ public class ProfissionalController {
     }
     // metodo para atualizar os dados de profissicional, abre a conecxão, substitui os dados e retorna se houve mudança nas linhas afetadas.
      
+     
     public boolean atualizarProfissional(Profissional profissional) {
         String sql = "UPDATE profissional SET nome = ?, cargo = ?, cpf = ?, telefone = ? WHERE id_profissional = ?";
 
@@ -83,8 +84,22 @@ public class ProfissionalController {
             return false;
         }
     }
-
+    // metodo para deletar os dados de profissional
     
+    public boolean removerProfissional(int idProfissional) {
+        String sql = "DELETE FROM profissional WHERE id_profissional = ?";
 
-    
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idProfissional);
+            int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao remover profissional: " + e.getMessage());
+            return false;
+        }
+    }
+
 }
