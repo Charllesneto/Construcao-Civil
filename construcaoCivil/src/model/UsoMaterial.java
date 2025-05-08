@@ -49,5 +49,11 @@ public class UsoMaterial {
     public void setQuantidade(double quantidade) {
         this.quantidade = quantidade;
     }
-    
+     @Override
+    public String toString() {
+        return "UsoMaterial [idUsoMaterial=" + idUsoMaterial +
+               ", material=" + (material != null ? material.getNome() : "null") +
+               ", etapa=" + (etapa != null ? etapa.getDescricao() : "null") +
+               ", quantidade=" + quantidade + "]";
+    }
 }
