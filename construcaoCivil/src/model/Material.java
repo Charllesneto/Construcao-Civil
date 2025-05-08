@@ -29,7 +29,7 @@ public class Material {
            
         }
         
-        public double precoUnitario(){
+        public double getPrecoUnitario(){
             return precoUnitario;
         }
 
