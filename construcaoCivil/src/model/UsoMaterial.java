@@ -17,5 +17,37 @@ public class UsoMaterial {
     this.etapa = etapa;
     this.quantidade = quantidade;
     }
+
+    public int getIdUsoMaterial() {
+        return idUsoMaterial;
+    }
+
+    public void setIdUsoMaterial(int idUsoMaterial) {
+        this.idUsoMaterial = idUsoMaterial;
+    }
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
+    public Etapa getEtapa() {
+        return etapa;
+    }
+
+    public void setEtapa(Etapa etapa) {
+        this.etapa = etapa;
+    }
+
+    public double getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(double quantidade) {
+        this.quantidade = quantidade;
+    }
     
 }
