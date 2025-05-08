@@ -41,16 +41,19 @@ public class ProjetoController {
             System.err.println("Erro ao adicionar projeto: " + e.getMessage());
         }
     }
-    
+    // metodo que retorna um array com os dados de projeto vindos do BD.
     public List<Projeto> listarProjetos() {
         List<Projeto> projetos = new ArrayList<>();
         String sql = "SELECT * FROM projeto";
-
+        
+        // 
+        
         try (Connection conn = Conexao.conectar();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
-
+            
             while (rs.next()) {
+                
                 Cliente cliente = clienteController.buscarPorId(rs.getInt("id_cliente"));
                 Projeto projeto = new Projeto(
                     rs.getInt("id_projeto"),
@@ -68,5 +71,28 @@ public class ProjetoController {
             System.err.println("Erro ao listar projetos: " + e.getMessage());
         }
         return projetos;
+    }
+    // atualiza os dados do projeto e retorna true se alguma linha for alterada
+    public boolean atualizarProjeto(Projeto projeto) {
+        String sql = "UPDATE projeto SET nome = ?, descricao = ?, data_inicio = ?, data_fim_prevista = ?, status = ?, id_cliente = ? WHERE id_projeto = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, projeto.getNome());
+            stmt.setString(2, projeto.getDescricao());
+            stmt.setDate(3, Date.valueOf(projeto.getDataInicio()));
+            stmt.setDate(4, Date.valueOf(projeto.getDataFimPrevista()));
+            stmt.setString(5, projeto.getStatus());
+            stmt.setInt(6, projeto.getCliente().getIdCliente());
+            stmt.setInt(7, projeto.getIdProjeto());
+
+            int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar projeto: " + e.getMessage());
+            return false;
+        }
     }
 }
