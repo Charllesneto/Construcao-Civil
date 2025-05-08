@@ -27,6 +27,17 @@ public class Projeto {
         this.profissional = profissional;
         this.cliente = cliente;
     }
+    // fiz uma sobrecaga do metodo construtor simplificado, sem alguns parametros para usar na classe projetoController
+    public Projeto(int idProjeto, String nome, String descricao, String dataInicio,
+               String dataFimPrevista, String status, Cliente cliente) {
+    this.idProjeto = idProjeto;
+    this.nome = nome;
+    this.descricao = descricao;
+    this.dataInicio = dataInicio;
+    this.dataFimPrevista = dataFimPrevista;
+    this.status = status;
+    this.cliente = cliente;
+}
 
     public Cliente getCliente() {
         return cliente;
