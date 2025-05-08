@@ -33,26 +33,26 @@ public class Material {
             return precoUnitario;
         }
 
-    public void setIdMaterial(int idMaterial) {
-        this.idMaterial = idMaterial;
-    }
+        public void setIdMaterial(int idMaterial) {
+            this.idMaterial = idMaterial;
+        }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+        public void setNome(String nome) {
+            this.nome = nome;
+        }
 
-    public void setUnidadeMedida(String unidadeMedida) {
-        this.unidadeMedida = unidadeMedida;
-    }
+        public void setUnidadeMedida(String unidadeMedida) {
+            this.unidadeMedida = unidadeMedida;
+        }
 
-    public void setPrecoUnitario(double precoUnitario) {
-        this.precoUnitario = precoUnitario;
-    }
-     
-    @Override
-    public String toString(){
-        return "Material [idMaterial="+ idMaterial +",nome="+nome+",unidadeMedida="+unidadeMedida+",precoUnitario="+precoUnitario+"]";
-    }
+        public void setPrecoUnitario(double precoUnitario) {
+            this.precoUnitario = precoUnitario;
+        }
+
+        @Override
+        public String toString(){
+            return "Material [idMaterial="+ idMaterial +",nome="+nome+",unidadeMedida="+unidadeMedida+",precoUnitario="+precoUnitario+"]";
+        }
         
         
     }
