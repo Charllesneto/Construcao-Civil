@@ -17,6 +17,8 @@ public class ProjetoController {
     
   private ClienteController clienteController = new ClienteController(); // para buscar o cliente pelo id.
    
+  // Método para adicionar um novo projeto ao BD.
+  
     public void adicionarProjeto(Projeto projeto) {
         String sql = "INSERT INTO projeto (id_projeto, nome, descricao, data_inicio, data_fim_prevista, status, id_cliente) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -38,5 +40,33 @@ public class ProjetoController {
         } catch (SQLException e) {
             System.err.println("Erro ao adicionar projeto: " + e.getMessage());
         }
+    }
+    
+    public List<Projeto> listarProjetos() {
+        List<Projeto> projetos = new ArrayList<>();
+        String sql = "SELECT * FROM projeto";
+
+        try (Connection conn = Conexao.conectar();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Cliente cliente = clienteController.buscarPorId(rs.getInt("id_cliente"));
+                Projeto projeto = new Projeto(
+                    rs.getInt("id_projeto"),
+                    rs.getString("nome"),
+                    rs.getString("descricao"),
+                    rs.getDate("data_inicio").toString(),
+                    rs.getDate("data_fim_prevista").toString(),
+                    rs.getString("status"),
+                    cliente
+                );
+                projetos.add(projeto);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar projetos: " + e.getMessage());
+        }
+        return projetos;
     }
 }
