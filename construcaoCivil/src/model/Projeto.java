@@ -7,22 +7,38 @@ public class Projeto {
     private String dataInicio;
     private String dataFimPrevista;
     private String status;
-    private int fkClienteProjeto;
-    private int fkProfissionalProjeto;
+    private Projeto projeto;
+    private Profissional profissional;
 
     // Construtor vazio
     public Projeto() {}
 
     // Construtor com parâmetros
-    public Projeto(int idProjeto, String nome, String descricao, String dataInicio, String dataFimPrevista, String status, int fkClienteProjeto, int fkProfissionalProjeto) {
+    public Projeto(int idProjeto, String nome, String descricao, String dataInicio, String dataFimPrevista, String status,Projeto projeto,Profissional profissional) {
         this.idProjeto = idProjeto;
         this.nome = nome;
         this.descricao = descricao;
         this.dataInicio = dataInicio;
         this.dataFimPrevista = dataFimPrevista;
         this.status = status;
-        this.fkClienteProjeto = fkClienteProjeto;
-        this.fkProfissionalProjeto = fkProfissionalProjeto;
+        this.projeto = projeto;
+        this.profissional = profissional;
+    }
+
+    public Projeto getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
+    }
+
+    public Profissional getProfissional() {
+        return profissional;
+    }
+
+    public void setProfissional(Profissional profissional) {
+        this.profissional = profissional;
     }
     // Getters e Setters
     public int getIdProjeto() {
@@ -73,22 +89,6 @@ public class Projeto {
         this.status = status;
     }
 
-    public int getFkClienteProjeto() {
-        return fkClienteProjeto;
-    }
-
-    public void setFkClienteProjeto(int fkClienteProjeto) {
-        this.fkClienteProjeto = fkClienteProjeto;
-    }
-
-    public int getFkProfissionalProjeto() {
-        return fkProfissionalProjeto;
-    }
-
-    public void setFkProfissionalProjeto(int fkProfissionalProjeto) {
-        this.fkProfissionalProjeto = fkProfissionalProjeto;
-    }
-
     // Método toString para facilitar a exibição do projeto
     @Override
     public String toString() {
@@ -99,8 +99,8 @@ public class Projeto {
                 ", dataInicio='" + dataInicio + '\'' +
                 ", dataFimPrevista='" + dataFimPrevista + '\'' +
                 ", status='" + status + '\'' +
-                ", fkClienteProjeto=" + fkClienteProjeto +
-                ", fkProfissionalProjeto=" + fkProfissionalProjeto +
+                ", Projeto =" + projeto +
+                ", Profissional=" + profissional +
                 '}';
     }
 }
