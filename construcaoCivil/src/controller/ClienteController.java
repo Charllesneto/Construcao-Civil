@@ -77,5 +77,47 @@ public List<Cliente> listarClientes() {
             return false;
         }
     }
+    // metodo para remover cliente retorna true se houver modificação na linha afetada da tabela do BD.
+    
+    public boolean removerCliente(int idCliente) {
+        String sql = "DELETE FROM cliente WHERE id_cliente = ?";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idCliente);
+            int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao remover cliente: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    // metodo para buscar cliente por ID, faz uma busca no banco peli id e retorna um objeto do tipo cliente.
+    public Cliente buscarPorId(int idCliente) {
+        String sql = "SELECT * FROM cliente WHERE id_cliente = ?";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idCliente);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Cliente(
+                    rs.getInt("id_cliente"),
+                    rs.getString("nome"),
+                    rs.getString("tipo_cliente"),
+                    rs.getString("cpf_cnpj"),
+                    rs.getString("telefone")
+                );
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar cliente por ID: " + e.getMessage());
+        }
+        return null;
+    }
+
     
 }
