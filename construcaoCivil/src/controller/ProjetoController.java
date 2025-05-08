@@ -112,7 +112,7 @@ public class ProjetoController {
         }
     }
     // metodo para fazer uma busca detalhada por id.
-     
+    //seleciona o objeto por id e retorna um objeto com os dados do banco
      public Projeto buscarPorId(int idProjeto) {
         String sql = "SELECT * FROM projeto WHERE id_projeto = ?";
 
@@ -140,4 +140,5 @@ public class ProjetoController {
         }
         return null;
     }
+     
 }
