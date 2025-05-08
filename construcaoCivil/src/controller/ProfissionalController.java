@@ -101,5 +101,32 @@ public class ProfissionalController {
             return false;
         }
     }
+    
+    // metodo para buscar profissional por id.
+    
+    public Profissional buscarPorId(int idProfissional) {
+        String sql = "SELECT * FROM profissional WHERE id_profissional = ?";
 
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idProfissional);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Profissional(
+                    rs.getInt("id_profissional"),
+                    rs.getString("nome"),
+                    rs.getString("cargo"),
+                    rs.getString("cpf"),
+                    rs.getString("telefone")
+                );
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar profissional por ID: " + e.getMessage());
+        }
+
+        return null;
+    }
 }
