@@ -574,6 +574,26 @@ public class app {
                         System.out.println("Material não encontrado. Operação cancelada.");
                         break;
                     }
-                }
+                    // Selecionar Etapa
+                    System.out.println("Etapas disponíveis:");
+                    etapaController.listarEtapas()
+                    .forEach(e -> System.out.println(e.getIdEtapa() + " - " + e.getDescricao()));
+                    System.out.print("ID da Etapa: ");
+                    int idEtap = scanner.nextInt();
+                    scanner.nextLine();
+                    Etapa etap = etapaController.buscarPorId(idEtap);
+                    if (etap == null) {
+                        System.out.println("Etapa não encontrada. Operação cancelada.");
+                        break;
+                    }
 
+                    System.out.print("Quantidade usada: ");
+                    double qtd = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    UsoMaterial uso = new UsoMaterial(id, mat, etap, qtd);
+                    usoMaterialController.adicionarUso(uso);
+                }
             }
+
+        }
