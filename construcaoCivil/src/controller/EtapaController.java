@@ -17,14 +17,13 @@ public class EtapaController {
     // Create
     public void adicionarEtapa(Etapa etapa) {
         String sql = "INSERT INTO etapa (id_etapa, descricao, status, data_inicio, data_fim_prevista) VALUES (?,?,?,?,?)";
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, etapa.getIdEtapa());
             stmt.setString(2, etapa.getDescricao());
             stmt.setString(3, etapa.getStatus());
-            stmt.setDate(4, Date.valueOf(etapa.getDataInicio()));
-            stmt.setDate(5, Date.valueOf(etapa.getDataFimPrevista()));
+            stmt.setString(4, etapa.getDataInicio());
+            stmt.setString(5, etapa.getDataFimPrevista());
 
             stmt.executeUpdate();
             System.out.println("Etapa adicionada com sucesso!");
@@ -39,9 +38,7 @@ public class EtapaController {
         List<Etapa> etapas = new ArrayList<>();
         String sql = "SELECT * FROM etapa";
 
-        try (Connection conn = Conexao.conectar();
-             Statement stmt = conn.createStatement();      
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = Conexao.conectar(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 Etapa etapa = new Etapa(
@@ -63,13 +60,13 @@ public class EtapaController {
     // Update
     public boolean atualizarEtapa(Etapa etapa) {
         String sql = "UPDATE etapa SET descricao = ?, status = ?, data_inicio = ?, data_fim_prevista = ? WHERE id_etapa = ?";
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, etapa.getDescricao());
             stmt.setString(2, etapa.getStatus());
-            stmt.setDate(3, Date.valueOf(etapa.getDataInicio()));
-            stmt.setDate(4, Date.valueOf(etapa.getDataFimPrevista()));
+            stmt.setString(3, etapa.getDataInicio());
+            stmt.setString(4, etapa.getDataFimPrevista());
+
             stmt.setInt(5, etapa.getIdEtapa());
 
             int linhasAfetadas = stmt.executeUpdate();
@@ -84,8 +81,7 @@ public class EtapaController {
     // Delete
     public boolean removerEtapa(int idEtapa) {
         String sql = "DELETE FROM etapa WHERE id_etapa = ?";
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idEtapa);
             int linhasAfetadas = stmt.executeUpdate();
@@ -100,8 +96,7 @@ public class EtapaController {
     // Buscar por ID
     public Etapa buscarPorId(int idEtapa) {
         String sql = "SELECT * FROM etapa WHERE id_etapa = ?";
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idEtapa);
             ResultSet rs = stmt.executeQuery();
