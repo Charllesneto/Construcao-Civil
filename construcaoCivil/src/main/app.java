@@ -34,7 +34,8 @@ public class app {
                 case 1 ->
                     menuClientes();
                 //case 2 -> menuProfissionais();
-                case 3 -> menuProjetos();
+                case 3 ->
+                    menuProjetos();
                 //case 4 -> menuEtapas();
                 //case 5 -> menuMateriais();
                 //case 6 -> menuUsoMateriais();
@@ -184,7 +185,6 @@ public class app {
 
                         // Se quiser trocar de cliente:
                         // Oferece a possibilidade de trocar de cliente, para evitar de ter que digitar os dados novamente
-                        
                         System.out.println("Clientes:");
                         clienteController.listarClientes()
                                 .forEach(c -> System.out.println(c.getIdCliente() + " - " + c.getNome()));
@@ -217,42 +217,81 @@ public class app {
             }
         } while (opcao != 0);
     }
-    
+
     private static void menuProfissionais() {
         int opcao;
-    do {
-        System.out.println("\n==== MENU PROFISSIONAIS ====");
-        System.out.println("1. Adicionar");
-        System.out.println("2. Listar");
-        System.out.println("3. Atualizar");
-        System.out.println("4. Remover");
-        System.out.println("0. Voltar");
-        System.out.print("Escolha: ");
-        opcao = scanner.nextInt();
-        scanner.nextLine(); // limpa buffer
+        do {
+            System.out.println("\n==== MENU PROFISSIONAIS ====");
+            System.out.println("1. Adicionar");
+            System.out.println("2. Listar");
+            System.out.println("3. Atualizar");
+            System.out.println("4. Remover");
+            System.out.println("0. Voltar");
+            System.out.print("Escolha: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine(); // limpa buffer
 
-        switch (opcao) {
-            case 1 -> {
-                
-            }
-                System.out.print("ID do Profissional: ");
-                int id = scanner.nextInt(); scanner.nextLine();
-                System.out.print("Nome: ");
-                String nome = scanner.nextLine();
-                System.out.print("Cargo: ");
-                String cargo = scanner.nextLine();
-                System.out.print("CPF: ");
-                String cpf = scanner.nextLine();
-                System.out.print("Telefone: ");
-                String tel = scanner.nextLine();
+            switch (opcao) {
+                case 1 -> {
 
-                Profissional p = new Profissional(id, nome, cargo, cpf, tel);
-                profissionalController.adicionarProfissional(p);
-            }
+                    System.out.print("ID do Profissional: ");
+                    int id = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Nome: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("Cargo: ");
+                    String cargo = scanner.nextLine();
+                    System.out.print("CPF: ");
+                    String cpf = scanner.nextLine();
+                    System.out.print("Telefone: ");
+                    String tel = scanner.nextLine();
 
-            case 2 -> {
-                List<Profissional> lista = profissionalController.listarProfissionais();
-                lista.forEach(System.out::println);
+                    Profissional p = new Profissional(id, nome, cargo, cpf, tel);
+                    profissionalController.adicionarProfissional(p);
+                }
+
+                case 2 -> {
+                    List<Profissional> lista = profissionalController.listarProfissionais();
+                    lista.forEach(System.out::println);
+                }
+                case 3 -> {
+                    System.out.print("ID do Profissional a atualizar: ");
+                    int idUp = scanner.nextInt();
+                    scanner.nextLine();
+                    Profissional p = profissionalController.buscarPorId(idUp);
+                    if (p == null) {
+                        System.out.println("Profissional não encontrado.");
+                        break;
+                    }
+
+                    System.out.print("Novo nome (" + p.getNome() + "): ");
+                    String novoNome = scanner.nextLine();
+                    if (!novoNome.isBlank()) {
+                        p.setNome(novoNome);
+                    }
+
+                    System.out.print("Novo cargo (" + p.getCargo() + "): ");
+                    String novoCargo = scanner.nextLine();
+                    if (!novoCargo.isBlank()) {
+                        p.setCargo(novoCargo);
+                    }
+
+                    System.out.print("Novo CPF (" + p.getCpf() + "): ");
+                    String novoCpf = scanner.nextLine();
+                    if (!novoCpf.isBlank()) {
+                        p.setCpf(novoCpf);
+                    }
+
+                    System.out.print("Novo telefone (" + p.getTelefone() + "): ");
+                    String novoTel = scanner.nextLine();
+                    if (!novoTel.isBlank()) {
+                        p.setTelefone(novoTel);
+                    }
+
+                    profissionalController.atualizarProfissional(p);
+                }
             }
-    }
+        }
+    }   
+
 }
