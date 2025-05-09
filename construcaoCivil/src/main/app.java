@@ -31,11 +31,9 @@ public class app {
             opcao = scanner.nextInt();
 
             switch (opcao) {
-                case 1 ->
-                    menuClientes();
-                //case 2 -> menuProfissionais();
-                case 3 ->
-                    menuProjetos();
+                case 1 -> menuClientes();
+                case 2 -> menuProfissionais();
+                case 3 -> menuProjetos();
                 //case 4 -> menuEtapas();
                 //case 5 -> menuMateriais();
                 //case 6 -> menuUsoMateriais();
@@ -290,8 +288,21 @@ public class app {
 
                     profissionalController.atualizarProfissional(p);
                 }
+                case 4 -> {
+                    System.out.print("ID do Profissional a remover: ");
+                    int idRem = scanner.nextInt();
+                    scanner.nextLine();
+                    profissionalController.removerProfissional(idRem);
+                }
+
+                case 0 -> {
+                    // volta ao menu principal
+                }
+
+                default ->
+                    System.out.println("Opção inválida.");
             }
-        }
-    }   
+        } while (opcao != 0);
+    }
 
 }
