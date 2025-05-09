@@ -39,7 +39,8 @@ public class app {
                     menuProjetos();
                 case 4 ->
                     menuEtapas();
-                //case 5 -> menuMateriais();
+                case 5 ->
+                    menuMateriais();
                 //case 6 -> menuUsoMateriais();
                 case 0 ->
                     System.out.println("Encerrando...");
@@ -223,7 +224,7 @@ public class app {
     private static void menuProfissionais() {
         int opcao;
         do {
-            System.out.println("\n==== MENU PROFISSIONAIS ====");
+            System.out.println("******** MENU PROFISSIONAIS *******");
             System.out.println("1. Adicionar");
             System.out.println("2. Listar");
             System.out.println("3. Atualizar");
@@ -457,4 +458,75 @@ public class app {
             }
         } while (opcao != 0);
     }
+
+    private static void menuMateriais() {
+        int opcao;
+
+        do {
+            System.out.println("********** MENU MATERIAIS *********");
+            System.out.println("1. Adicionar");
+            System.out.println("2. Listar");
+            System.out.println("3. Atualizar");
+            System.out.println("4. Remover");
+            System.out.println("0. Voltar");
+            System.out.print("Escolha: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1 -> {
+                    System.out.print("ID do Material: ");
+                    int id = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Nome: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("Unidade de Medida: ");
+                    String unidade = scanner.nextLine();
+                    System.out.print("Preço Unitário: ");
+                    double preco = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    Material m = new Material(id, nome, unidade, preco);
+                    materialController.adicionarMaterial(m);
+                }
+                case 2 -> {
+                    List<Material> lista = materialController.listarMateriais();
+                    lista.forEach(System.out::println);
+                }
+
+                case 3 -> {
+                    System.out.print("ID do Material a atualizar: ");
+                    int idUp = scanner.nextInt();
+                    scanner.nextLine();
+                    Material m = materialController.buscarPorId(idUp);
+                    if (m == null) {
+                        System.out.println("Material não encontrado.");
+                        break;
+                    }
+
+                    System.out.print("Novo nome (" + m.getNome() + "): ");
+                    String novoNome = scanner.nextLine();
+                    if (!novoNome.isBlank()) {
+                        m.setNome(novoNome);
+                    }
+
+                    System.out.print("Nova unidade de medida (" + m.getUnidadeMedida() + "): ");
+                    String novaUnidade = scanner.nextLine();
+                    if (!novaUnidade.isBlank()) {
+                        m.setUnidadeMedida(novaUnidade);
+                    }
+
+                    System.out.print("Novo preço unitário (" + m.getPrecoUnitario() + "): ");
+                    String entradaPreco = scanner.nextLine();
+                    if (!entradaPreco.isBlank()) {
+                        double novoPreco = Double.parseDouble(entradaPreco);
+                        m.setPrecoUnitario(novoPreco);
+                    }
+
+                    materialController.atualizarMaterial(m);
+                }
+
+            }
+          
+    
 }
