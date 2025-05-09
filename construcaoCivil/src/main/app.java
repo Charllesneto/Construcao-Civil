@@ -41,7 +41,8 @@ public class app {
                     menuEtapas();
                 case 5 ->
                     menuMateriais();
-                //case 6 -> menuUsoMateriais();
+                case 6 ->
+                    menuUsoMateriais();
                 case 0 ->
                     System.out.println("Encerrando...");
                 default ->
@@ -542,4 +543,37 @@ public class app {
         } while (opcao != 0);
     }
 
-}
+    private static void menuUsoMateriais() {
+        int opcao;
+
+        do {
+            System.out.println("********** MENU USO DE MATERIAIS *********");
+            System.out.println("1. Adicionar");
+            System.out.println("2. Listar");
+            System.out.println("3. Atualizar");
+            System.out.println("4. Remover");
+            System.out.println("0. Voltar");
+            System.out.print("Escolha: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+            switch (opcao) {
+                case 1 -> {
+                    System.out.print("ID do Uso de Material: ");
+                    int id = scanner.nextInt();
+                    scanner.nextLine();
+
+                    // Selecionar Material
+                    System.out.println("Materiais disponíveis:");
+                    materialController.listarMateriais()
+                            .forEach(m -> System.out.println(m.getIdMaterial() + " - " + m.getNome()));
+                    System.out.print("ID do Material: ");
+                    int idMat = scanner.nextInt();
+                    scanner.nextLine();
+                    Material mat = materialController.buscarPorId(idMat);
+                    if (mat == null) {
+                        System.out.println("Material não encontrado. Operação cancelada.");
+                        break;
+                    }
+                }
+
+            }
