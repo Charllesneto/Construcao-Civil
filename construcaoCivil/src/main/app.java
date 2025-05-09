@@ -577,7 +577,7 @@ public class app {
                     // Selecionar Etapa
                     System.out.println("Etapas disponíveis:");
                     etapaController.listarEtapas()
-                    .forEach(e -> System.out.println(e.getIdEtapa() + " - " + e.getDescricao()));
+                            .forEach(e -> System.out.println(e.getIdEtapa() + " - " + e.getDescricao()));
                     System.out.print("ID da Etapa: ");
                     int idEtap = scanner.nextInt();
                     scanner.nextLine();
@@ -593,6 +593,18 @@ public class app {
 
                     UsoMaterial uso = new UsoMaterial(id, mat, etap, qtd);
                     usoMaterialController.adicionarUso(uso);
+                }
+                case 2 -> {
+                    usoMaterialController.listarUsos()
+                            .forEach(System.out::println);
+                }
+                case 3 -> {
+                System.out.print("ID do Uso de Material a atualizar: ");
+                int idUp = scanner.nextInt(); scanner.nextLine();
+                UsoMaterial uso = usoMaterialController.buscarPorId(idUp);
+                if (uso == null) {
+                    System.out.println("Registro não encontrado.");
+                    break;
                 }
             }
 
