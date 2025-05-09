@@ -8,7 +8,6 @@ import model.Etapa;
 import database.Conexao;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +48,8 @@ public class EtapaController {
                         rs.getInt("id_etapa"),
                         rs.getString("descricao"),
                         rs.getString("status"),
-                        rs.getDate("data_inicio").toLocalDate(),
-                        rs.getDate("data_fim_prevista").toLocalDate()
+                        rs.getDate("data_inicio").toString(),
+                        rs.getDate("data_fim_prevista").toString()
                 );
                 etapas.add(etapa);
             }
@@ -112,8 +111,8 @@ public class EtapaController {
                         rs.getInt("id_etapa"),
                         rs.getString("descricao"),
                         rs.getString("status"),
-                        rs.getDate("data_inicio").toLocalDate(),
-                        rs.getDate("data_fim_prevista").toLocalDate()
+                        rs.getDate("data_inicio").toString(),
+                        rs.getDate("data_fim_prevista").toString()
                 );
             }
 
