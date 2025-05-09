@@ -31,10 +31,14 @@ public class app {
             opcao = scanner.nextInt();
 
             switch (opcao) {
-                case 1 -> menuClientes();
-                case 2 -> menuProfissionais();
-                case 3 -> menuProjetos();
-                case 4 -> menuEtapas();
+                case 1 ->
+                    menuClientes();
+                case 2 ->
+                    menuProfissionais();
+                case 3 ->
+                    menuProjetos();
+                case 4 ->
+                    menuEtapas();
                 //case 5 -> menuMateriais();
                 //case 6 -> menuUsoMateriais();
                 case 0 ->
@@ -304,21 +308,73 @@ public class app {
             }
         } while (opcao != 0);
     }
+
     private static void menuEtapas() {
         int opcao;
-        
-    do {
-        System.out.println("\n==== MENU ETAPAS ====");
-        System.out.println("1. Adicionar");
-        System.out.println("2. Listar");
-        System.out.println("3. Atualizar");
-        System.out.println("4. Remover");
-        System.out.println("0. Voltar");
-        System.out.print("Escolha: ");
-        opcao = scanner.nextInt();
-        scanner.nextLine();
-        
-        
-    }
 
+        do {
+            System.out.println("********** MENU ETAPAS *********");
+            System.out.println("1. Adicionar");
+            System.out.println("2. Listar");
+            System.out.println("3. Atualizar");
+            System.out.println("4. Remover");
+            System.out.println("0. Voltar");
+            System.out.print("Escolha: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1 -> {
+                    System.out.print("ID da Etapa: ");
+                    int id = scanner.nextInt();
+                    scanner.nextLine();
+
+                    // Selecionar Projeto
+                    System.out.println("Projetos disponíveis:");
+                    projetoController.listarProjetos()
+                            .forEach(p -> System.out.println(p.getIdProjeto() + " - " + p.getNome()));
+                    System.out.print("ID do Projeto: ");
+                    int idProj = scanner.nextInt();
+                    scanner.nextLine();
+                    Projeto projeto = projetoController.buscarPorId(idProj);
+                    if (projeto == null) {
+                        System.out.println("Projeto não encontrado. Operação cancelada.");
+                        break;
+                    }
+
+                    // Selecionar Profissional
+                    System.out.println("Profissionais disponíveis:");
+                    profissionalController.listarProfissionais()
+                            .forEach(pr -> System.out.println(pr.getIdProfissional() + " - " + pr.getNome()));
+                    System.out.print("ID do Profissional responsável: ");
+                    int idProf = scanner.nextInt();
+                    scanner.nextLine();
+                    Profissional prof = profissionalController.buscarPorId(idProf);
+                    if (prof == null) {
+                        System.out.println("Profissional não encontrado. Operação cancelada.");
+                        break;
+                    }
+
+                    System.out.print("Descrição da Etapa: ");
+                    String desc = scanner.nextLine();
+                    System.out.print("Status: ");
+                    String status = scanner.nextLine();
+                    System.out.print("Data de Início (ex: 2025-05-10): ");
+                    String di = scanner.nextLine();
+                    System.out.print("Data Fim Prevista (ex: 2025-06-15): ");
+                    String df = scanner.nextLine();
+
+                    Etapa e = new Etapa(id, desc, status, di, df, projeto, prof);
+                    etapaController.adicionarEtapa(e);
+                }
+
+                case 2 -> {
+                    etapaController.listarEtapas()
+                            .forEach(System.out::println);
+                }
+            }
+
+        }
+    }
+    
 }
