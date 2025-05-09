@@ -373,60 +373,88 @@ public class app {
                             .forEach(System.out::println);
                 }
                 case 3 -> {
-                System.out.print("ID da Etapa a atualizar: ");
-                int idUp = scanner.nextInt(); scanner.nextLine();
-                Etapa e = etapaController.buscarPorId(idUp);
-                if (e == null) {
-                    System.out.println("Etapa não encontrada.");
-                    break;
+                    System.out.print("ID da Etapa a atualizar: ");
+                    int idUp = scanner.nextInt();
+                    scanner.nextLine();
+                    Etapa e = etapaController.buscarPorId(idUp);
+                    if (e == null) {
+                        System.out.println("Etapa não encontrada.");
+                        break;
+                    }
+
+                    System.out.print("Nova descrição (" + e.getDescricao() + "): ");
+                    String nd = scanner.nextLine();
+                    if (!nd.isBlank()) {
+                        e.setDescricao(nd);
+                    }
+
+                    System.out.print("Novo status (" + e.getStatus() + "): ");
+                    String ns = scanner.nextLine();
+                    if (!ns.isBlank()) {
+                        e.setStatus(ns);
+                    }
+
+                    System.out.print("Nova data de início (" + e.getDataInicio() + "): ");
+                    String diUp = scanner.nextLine();
+                    if (!diUp.isBlank()) {
+                        e.setDataInicio(diUp);
+                    }
+
+                    System.out.print("Nova data fim prevista (" + e.getDataFimPrevista() + "): ");
+                    String dfUp = scanner.nextLine();
+                    if (!dfUp.isBlank()) {
+                        e.setDataFimPrevista(dfUp);
+                    }
+
+                    // Trocar Projeto (opcional)
+                    System.out.println("Projetos disponíveis:");
+                    projetoController.listarProjetos()
+                            .forEach(p -> System.out.println(p.getIdProjeto() + " - " + p.getNome()));
+                    System.out.print("Novo ID do Projeto (ou ENTER para manter " + e.getProjeto().getIdProjeto() + "): ");
+                    String entProj = scanner.nextLine();
+                    if (!entProj.isBlank()) {
+                        int newIdP = Integer.parseInt(entProj);
+                        Projeto newProj = projetoController.buscarPorId(newIdP);
+                        if (newProj != null) {
+                            e.setProjeto(newProj);
+                        } else {
+                            System.out.println("Projeto não encontrado; mantendo o atual.");
+                        }
+                    }
+
+                    // Trocar Profissional (opcional)
+                    System.out.println("Profissionais disponíveis:");
+                    profissionalController.listarProfissionais()
+                            .forEach(pr -> System.out.println(pr.getIdProfissional() + " - " + pr.getNome()));
+                    System.out.print("Novo ID do Profissional (ou ENTER para manter " + e.getProfissional().getIdProfissional() + "): ");
+                    String entProf = scanner.nextLine();
+                    if (!entProf.isBlank()) {
+                        int newIdPr = Integer.parseInt(entProf);
+                        Profissional newPr = profissionalController.buscarPorId(newIdPr);
+                        if (newPr != null) {
+                            e.setProfissional(newPr);
+                        } else {
+                            System.out.println("Profissional não encontrado; mantendo o atual.");
+                        }
+                    }
+
+                    etapaController.atualizarEtapa(e);
                 }
 
-                System.out.print("Nova descrição (" + e.getDescricao() + "): ");
-                String nd = scanner.nextLine();
-                if (!nd.isBlank()) e.setDescricao(nd);
-
-                System.out.print("Novo status (" + e.getStatus() + "): ");
-                String ns = scanner.nextLine();
-                if (!ns.isBlank()) e.setStatus(ns);
-
-                System.out.print("Nova data de início (" + e.getDataInicio() + "): ");
-                String diUp = scanner.nextLine();
-                if (!diUp.isBlank()) e.setDataInicio(diUp);
-
-                System.out.print("Nova data fim prevista (" + e.getDataFimPrevista() + "): ");
-                String dfUp = scanner.nextLine();
-                if (!dfUp.isBlank()) e.setDataFimPrevista(dfUp);
-
-                // Trocar Projeto (opcional)
-                System.out.println("Projetos disponíveis:");
-                projetoController.listarProjetos()
-                    .forEach(p -> System.out.println(p.getIdProjeto() + " - " + p.getNome()));
-                System.out.print("Novo ID do Projeto (ou ENTER para manter " + e.getProjeto().getIdProjeto() + "): ");
-                String entProj = scanner.nextLine();
-                if (!entProj.isBlank()) {
-                    int newIdP = Integer.parseInt(entProj);
-                    Projeto newProj = projetoController.buscarPorId(newIdP);
-                    if (newProj != null) e.setProjeto(newProj);
-                    else System.out.println("Projeto não encontrado; mantendo o atual.");
+                case 4 -> {
+                    System.out.print("ID da Etapa a remover: ");
+                    int idRem = scanner.nextInt();
+                    scanner.nextLine();
+                    etapaController.removerEtapa(idRem);
                 }
 
-                // Trocar Profissional (opcional)
-                System.out.println("Profissionais disponíveis:");
-                profissionalController.listarProfissionais()
-                    .forEach(pr -> System.out.println(pr.getIdProfissional() + " - " + pr.getNome()));
-                System.out.print("Novo ID do Profissional (ou ENTER para manter " + e.getProfissional().getIdProfissional() + "): ");
-                String entProf = scanner.nextLine();
-                if (!entProf.isBlank()) {
-                    int newIdPr = Integer.parseInt(entProf);
-                    Profissional newPr = profissionalController.buscarPorId(newIdPr);
-                    if (newPr != null) e.setProfissional(newPr);
-                    else System.out.println("Profissional não encontrado; mantendo o atual.");
+                case 0 -> {
+                    // volta ao menu principal
                 }
 
-                etapaController.atualizarEtapa(e);
-            
-            
-
-        
-    
-    
+                default ->
+                    System.out.println("Opção inválida.");
+            }
+        } while (opcao != 0);
+    }
+}
