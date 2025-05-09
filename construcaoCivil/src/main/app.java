@@ -34,7 +34,7 @@ public class app {
                 case 1 -> menuClientes();
                 case 2 -> menuProfissionais();
                 case 3 -> menuProjetos();
-                //case 4 -> menuEtapas();
+                case 4 -> menuEtapas();
                 //case 5 -> menuMateriais();
                 //case 6 -> menuUsoMateriais();
                 case 0 ->
@@ -303,6 +303,22 @@ public class app {
                     System.out.println("Opção inválida.");
             }
         } while (opcao != 0);
+    }
+    private static void menuEtapas() {
+        int opcao;
+        
+    do {
+        System.out.println("\n==== MENU ETAPAS ====");
+        System.out.println("1. Adicionar");
+        System.out.println("2. Listar");
+        System.out.println("3. Atualizar");
+        System.out.println("4. Remover");
+        System.out.println("0. Voltar");
+        System.out.print("Escolha: ");
+        opcao = scanner.nextInt();
+        scanner.nextLine();
+        
+        
     }
 
 }
