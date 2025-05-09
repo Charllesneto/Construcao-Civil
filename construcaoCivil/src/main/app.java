@@ -34,7 +34,7 @@ public class app {
                 case 1 ->
                     menuClientes();
                 //case 2 -> menuProfissionais();
-                //case 3 -> menuProjetos();
+                case 3 -> menuProjetos();
                 //case 4 -> menuEtapas();
                 //case 5 -> menuMateriais();
                 //case 6 -> menuUsoMateriais();
@@ -109,11 +109,11 @@ public class app {
         } while (opcao != 0);
     }
 
-    private static void menuProfissionais() {
+    private static void menuProjetos() {
 
         int opcao;
         do {
-            System.out.println(" ****** MENU PROFISSIONAIS ******");
+            System.out.println(" ****** MENU DE PROJETOS ******");
             System.out.println("1. Adicionar");
             System.out.println("2. Listar");
             System.out.println("3. Atualizar");
@@ -216,5 +216,9 @@ public class app {
                     System.out.println("Opção inválida.");
             }
         } while (opcao != 0);
+    }
+    
+    private static void menuProfissionais() {
+        
     }
 }
