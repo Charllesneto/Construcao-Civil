@@ -16,24 +16,27 @@ public class EtapaController {
     // Métodos CRUD
     // Create
     public void adicionarEtapa(Etapa etapa) {
-        String sql = "INSERT INTO etapa (id_etapa, descricao, status, data_inicio, data_fim_prevista) VALUES (?,?,?,?,?)";
-        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+    String sql = "INSERT INTO etapa "
+               + "(id_etapa, descricao, status, data_inicio, data_fim_prevista, fk_projeto_etapa) "
+               + "VALUES (?, ?, ?, ?, ?, ?)";
 
-            stmt.setInt(1, etapa.getIdEtapa());
-            stmt.setString(2, etapa.getDescricao());
-            stmt.setString(3, etapa.getStatus());
-            stmt.setString(4, etapa.getDataInicio());
-            stmt.setString(5, etapa.getDataFimPrevista());
-            stmt.setInt(6, etapa.getProjeto().getIdProjeto());
-            stmt.setInt(7, etapa.getProfissional().getIdProfissional());
+    try (Connection conn = Conexao.conectar();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.executeUpdate();
-            System.out.println("Etapa adicionada com sucesso!");
+        stmt.setInt(1, etapa.getIdEtapa());
+        stmt.setString(2, etapa.getDescricao());
+        stmt.setString(3, etapa.getStatus());
+        stmt.setString(4, etapa.getDataInicio());
+        stmt.setString(5, etapa.getDataFimPrevista());
+        stmt.setInt(6, etapa.getProjeto().getIdProjeto());
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        stmt.executeUpdate();
+        System.out.println("Etapa adicionada com sucesso!");
+    } catch (SQLException e) {
+        System.err.println("Erro ao adicionar etapa: " + e.getMessage());
     }
+}
+
 
     // Read
     public List<Etapa> listarEtapas() {
@@ -61,7 +64,7 @@ public class EtapaController {
 
     // Update
     public boolean atualizarEtapa(Etapa etapa) {
-        String sql = "UPDATE etapa SET descricao = ?, status = ?, data_inicio = ?, data_fim_prevista = ? WHERE id_etapa = ?";
+        String sql = "UPDATE etapa SET descricao = ?, status = ?, data_inicio = ?, data_fim_prevista = ?, id_projeto= ?,id_profissional=? WHERE id_etapa = ?";
         try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, etapa.getDescricao());
