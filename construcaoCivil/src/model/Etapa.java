@@ -12,15 +12,35 @@ public class Etapa {
     private int idEtapa;
     private String descricao;
     private String status;
-    private LocalDate dataInicio;
-    private LocalDate dataFimPrevista;
+    private String dataInicio;
+    private String dataFimPrevista;
+    private Projeto projeto;
+    private Profissional  profissional;
 
-    public Etapa(int idEtapa, String descricao, String status, LocalDate dataInicio, LocalDate dataFimPrevista) {
+    public Etapa(int idEtapa, String descricao, String status, String dataInicio, String dataFimPrevista,Projeto projeto, Profissional profissional) {
         this.idEtapa = idEtapa;
         this.descricao = descricao;
         this.status = status;
         this.dataInicio = dataInicio;
         this.dataFimPrevista = dataFimPrevista;
+        this.projeto = projeto;
+        this.profissional = profissional;
+    }
+
+    public Projeto getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
+    }
+
+    public Profissional getProfissional() {
+        return profissional;
+    }
+
+    public void setProfissional(Profissional profissional) {
+        this.profissional = profissional;
     }
 
     public int getIdEtapa() {
@@ -47,19 +67,19 @@ public class Etapa {
         this.status = status;
     }
 
-    public LocalDate getDataInicio() {
+    public String getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(LocalDate dataInicio) {
+    public void setDataInicio(String dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public LocalDate getDataFimPrevista() {
+    public String getDataFimPrevista() {
         return dataFimPrevista;
     }
 
-    public void setDataFimPrevista(LocalDate dataFimPrevista) {
+    public void setDataFimPrevista(String dataFimPrevista) {
         this.dataFimPrevista = dataFimPrevista;
     }
 
