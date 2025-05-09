@@ -525,8 +525,21 @@ public class app {
 
                     materialController.atualizarMaterial(m);
                 }
+                case 4 -> {
+                    System.out.print("ID do Material a remover: ");
+                    int idRem = scanner.nextInt();
+                    scanner.nextLine();
+                    materialController.removerMaterial(idRem);
+                }
 
+                case 0 -> {
+                    // volta ao menu principal
+                }
+
+                default ->
+                    System.out.println("Opção inválida.");
             }
-          
-    
+        } while (opcao != 0);
+    }
+
 }
