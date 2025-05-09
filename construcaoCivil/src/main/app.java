@@ -219,6 +219,40 @@ public class app {
     }
     
     private static void menuProfissionais() {
-        
+        int opcao;
+    do {
+        System.out.println("\n==== MENU PROFISSIONAIS ====");
+        System.out.println("1. Adicionar");
+        System.out.println("2. Listar");
+        System.out.println("3. Atualizar");
+        System.out.println("4. Remover");
+        System.out.println("0. Voltar");
+        System.out.print("Escolha: ");
+        opcao = scanner.nextInt();
+        scanner.nextLine(); // limpa buffer
+
+        switch (opcao) {
+            case 1 -> {
+                
+            }
+                System.out.print("ID do Profissional: ");
+                int id = scanner.nextInt(); scanner.nextLine();
+                System.out.print("Nome: ");
+                String nome = scanner.nextLine();
+                System.out.print("Cargo: ");
+                String cargo = scanner.nextLine();
+                System.out.print("CPF: ");
+                String cpf = scanner.nextLine();
+                System.out.print("Telefone: ");
+                String tel = scanner.nextLine();
+
+                Profissional p = new Profissional(id, nome, cargo, cpf, tel);
+                profissionalController.adicionarProfissional(p);
+            }
+
+            case 2 -> {
+                List<Profissional> lista = profissionalController.listarProfissionais();
+                lista.forEach(System.out::println);
+            }
     }
 }
