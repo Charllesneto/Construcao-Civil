@@ -599,13 +599,72 @@ public class app {
                             .forEach(System.out::println);
                 }
                 case 3 -> {
-                System.out.print("ID do Uso de Material a atualizar: ");
-                int idUp = scanner.nextInt(); scanner.nextLine();
-                UsoMaterial uso = usoMaterialController.buscarPorId(idUp);
-                if (uso == null) {
-                    System.out.println("Registro não encontrado.");
-                    break;
-                }
-            }
+                    System.out.print("ID do Uso de Material a atualizar: ");
+                    int idUp = scanner.nextInt();
+                    scanner.nextLine();
+                    UsoMaterial uso = usoMaterialController.buscarPorId(idUp);
+                    if (uso == null) {
+                        System.out.println("Registro não encontrado.");
+                        break;
+                    }// Atualizar Material
+                    System.out.println("Materiais disponíveis:");
+                    materialController.listarMateriais()
+                            .forEach(m -> System.out.println(m.getIdMaterial() + " - " + m.getNome()));
+                    System.out.print("Novo ID do Material (ou ENTER para manter " + uso.getMaterial().getIdMaterial() + "): ");
+                    String inMat = scanner.nextLine();
+                    if (!inMat.isBlank()) {
+                        int newMatId = Integer.parseInt(inMat);
+                        Material newMat = materialController.buscarPorId(newMatId);
+                        if (newMat != null) {
+                            uso.setMaterial(newMat);
+                        } else {
+                            System.out.println("Material não encontrado; mantendo o atual.");
+                        }
+                    }
 
-        }
+                    // Atualizar Etapa
+                    System.out.println("Etapas disponíveis:");
+                    etapaController.listarEtapas()
+                            .forEach(e -> System.out.println(e.getIdEtapa() + " - " + e.getDescricao()));
+                    System.out.print("Novo ID da Etapa (ou ENTER para manter " + uso.getEtapa().getIdEtapa() + "): ");
+                    String inEtap = scanner.nextLine();
+                    if (!inEtap.isBlank()) {
+                        int newEtapId = Integer.parseInt(inEtap);
+                        Etapa newEtap = etapaController.buscarPorId(newEtapId);
+                        if (newEtap != null) {
+                            uso.setEtapa(newEtap);
+                        } else {
+                            System.out.println("Etapa não encontrada; mantendo a atual.");
+                        }
+                    }
+
+                    // Atualizar Quantidade
+                    System.out.print("Nova quantidade (" + uso.getQuantidade() + "): ");
+                    String inQtd = scanner.nextLine();
+                    if (!inQtd.isBlank()) {
+                        double newQtd = Double.parseDouble(inQtd);
+                        uso.setQuantidade(newQtd);
+                    }
+
+                    usoMaterialController.atualizarUso(uso);
+                }
+
+                case 4 -> {
+                    System.out.print("ID do Uso de Material a remover: ");
+                    int idRem = scanner.nextInt();
+                    scanner.nextLine();
+                    usoMaterialController.removerUso(idRem);
+                }
+
+                case 0 -> {
+                    // volta ao menu principal
+                }
+
+                default ->
+                    System.out.println("Opção inválida.");
+            }
+        } while (opcao != 0);
+    }
+    
+}
+ 
