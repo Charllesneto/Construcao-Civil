@@ -24,6 +24,8 @@ public class EtapaController {
             stmt.setString(3, etapa.getStatus());
             stmt.setString(4, etapa.getDataInicio());
             stmt.setString(5, etapa.getDataFimPrevista());
+            stmt.setInt(6, etapa.getProjeto().getIdProjeto());
+            stmt.setInt(7, etapa.getProfissional().getIdProfissional());
 
             stmt.executeUpdate();
             System.out.println("Etapa adicionada com sucesso!");
@@ -66,6 +68,8 @@ public class EtapaController {
             stmt.setString(2, etapa.getStatus());
             stmt.setString(3, etapa.getDataInicio());
             stmt.setString(4, etapa.getDataFimPrevista());
+            stmt.setInt(5, etapa.getProjeto().getIdProjeto());
+            stmt.setInt(6, etapa.getProfissional().getIdProfissional());
 
             stmt.setInt(5, etapa.getIdEtapa());
 
