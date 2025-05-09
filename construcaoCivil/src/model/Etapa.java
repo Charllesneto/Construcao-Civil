@@ -26,6 +26,13 @@ public class Etapa {
         this.projeto = projeto;
         this.profissional = profissional;
     }
+    public Etapa(int idEtapa, String descricao, String status, String dataInicio, String dataFimPrevista) {
+        this.idEtapa = idEtapa;
+        this.descricao = descricao;
+        this.status = status;
+        this.dataInicio = dataInicio;
+        this.dataFimPrevista = dataFimPrevista;
+    }
 
     public Projeto getProjeto() {
         return projeto;
