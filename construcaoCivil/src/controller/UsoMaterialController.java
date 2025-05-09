@@ -119,4 +119,24 @@ public class UsoMaterialController {
 
         return null;
     }
+    public boolean removerUso(int idUsoMaterial) {
+    String sql = "DELETE FROM uso_material WHERE id_uso_material = ?";
+    try (Connection conn = Conexao.conectar();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, idUsoMaterial);
+        int linhasAfetadas = stmt.executeUpdate();
+        if (linhasAfetadas > 0) {
+            System.out.println("Uso de material removido com sucesso!");
+            return true;
+        } else {
+            System.out.println("Nenhum uso de material encontrado com ID " + idUsoMaterial);
+            return false;
+        }
+
+    } catch (SQLException e) {
+        System.err.println("Erro ao remover uso de material: " + e.getMessage());
+        return false;
+    }
+}
 }
