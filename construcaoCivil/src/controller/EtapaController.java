@@ -50,8 +50,8 @@ public class EtapaController {
                         rs.getInt("id_etapa"),
                         rs.getString("descricao"),
                         rs.getString("status"),
-                        rs.getDate("data_inicio").toString(),
-                        rs.getDate("data_fim_prevista").toString()
+                        rs.getString("data_inicio").toString(),
+                        rs.getString("data_fim_prevista").toString()
                 );
                 etapas.add(etapa);
             }
