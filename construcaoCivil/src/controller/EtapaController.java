@@ -26,8 +26,8 @@ public class EtapaController {
         stmt.setInt(1, etapa.getIdEtapa());
         stmt.setString(2, etapa.getDescricao());
         stmt.setString(3, etapa.getStatus());
-        stmt.setString(4, etapa.getDataInicio());
-        stmt.setString(5, etapa.getDataFimPrevista());
+        stmt.setDate(4, etapa.getDataInicio());
+        stmt.setDate(5, etapa.getDataFimPrevista());
         stmt.setInt(6, etapa.getProjeto().getIdProjeto());
 
         stmt.executeUpdate();
@@ -50,8 +50,8 @@ public class EtapaController {
                         rs.getInt("id_etapa"),
                         rs.getString("descricao"),
                         rs.getString("status"),
-                        rs.getString("data_inicio").toString(),
-                        rs.getString("data_fim_prevista").toString()
+                        rs.getDate("data_inicio"),
+                        rs.getDate("data_fim_prevista")
                 );
                 etapas.add(etapa);
             }
@@ -69,8 +69,8 @@ public class EtapaController {
 
             stmt.setString(1, etapa.getDescricao());
             stmt.setString(2, etapa.getStatus());
-            stmt.setString(3, etapa.getDataInicio());
-            stmt.setString(4, etapa.getDataFimPrevista());
+            stmt.setDate(3, etapa.getDataInicio());
+            stmt.setDate(4, etapa.getDataFimPrevista());
             stmt.setInt(5, etapa.getProjeto().getIdProjeto());
             stmt.setInt(6, etapa.getProfissional().getIdProfissional());
 
@@ -113,8 +113,8 @@ public class EtapaController {
                         rs.getInt("id_etapa"),
                         rs.getString("descricao"),
                         rs.getString("status"),
-                        rs.getDate("data_inicio").toString(),
-                        rs.getDate("data_fim_prevista").toString()
+                        rs.getDate("data_inicio"),
+                        rs.getDate("data_fim_prevista")
                 );
             }
 

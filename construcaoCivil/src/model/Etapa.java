@@ -5,19 +5,20 @@ package model;
  * @author Nodival Neto
  */
 
-import java.time.LocalDate;
+
+import java.sql.Date;
 
 public class Etapa {
 
     private int idEtapa;
     private String descricao;
     private String status;
-    private String dataInicio;
-    private String dataFimPrevista;
+    private Date dataInicio;
+    private Date dataFimPrevista;
     private Projeto projeto;
     private Profissional  profissional;
 
-    public Etapa(int idEtapa, String descricao, String status, String dataInicio, String dataFimPrevista,Projeto projeto, Profissional profissional) {
+    public Etapa(int idEtapa, String descricao, String status, Date dataInicio,Date dataFimPrevista,Projeto projeto, Profissional profissional) {
         this.idEtapa = idEtapa;
         this.descricao = descricao;
         this.status = status;
@@ -26,7 +27,7 @@ public class Etapa {
         this.projeto = projeto;
         this.profissional = profissional;
     }
-    public Etapa(int idEtapa, String descricao, String status, String dataInicio, String dataFimPrevista) {
+    public Etapa(int idEtapa, String descricao, String status,Date dataInicio,Date dataFimPrevista) {
         this.idEtapa = idEtapa;
         this.descricao = descricao;
         this.status = status;
@@ -74,19 +75,19 @@ public class Etapa {
         this.status = status;
     }
 
-    public String getDataInicio() {
+    public java.sql.Date getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(String dataInicio) {
+    public void setDataInicio(Date dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public String getDataFimPrevista() {
+    public Date getDataFimPrevista() {
         return dataFimPrevista;
     }
 
-    public void setDataFimPrevista(String dataFimPrevista) {
+    public void setDataFimPrevista(java.sql.Date dataFimPrevista) {
         this.dataFimPrevista = dataFimPrevista;
     }
 

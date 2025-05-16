@@ -20,7 +20,7 @@ public class UsoMaterialController {
 
     // Metodo adicionar uso insere no banco os dados de materiais gastos 
     public void adicionarUso(UsoMaterial uso) {
-        String sql = "INSERT INTO uso_material (id_uso_material, id_material, id_etapa, quantidade) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO uso_material (id_uso_material, fk_material_uso_material, fk_etapa_uso_material, quantidade) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -49,8 +49,8 @@ public class UsoMaterialController {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                Material material = materialController.buscarPorId(rs.getInt("id_material"));
-                Etapa etapa = etapaController.buscarPorId(rs.getInt("id_etapa"));
+                Material material = materialController.buscarPorId(rs.getInt("fk_material_uso_material"));
+                Etapa etapa = etapaController.buscarPorId(rs.getInt("fk_etapa_uso_material"));
 
                 UsoMaterial uso = new UsoMaterial(
                     rs.getInt("id_uso_material"),
@@ -71,7 +71,7 @@ public class UsoMaterialController {
     // metodo para atualizar os materiais ultilizados 
     
     public boolean atualizarUso(UsoMaterial uso) {
-        String sql = "UPDATE uso_material SET id_material = ?, id_etapa = ?, quantidade = ? WHERE id_uso_material = ?";
+        String sql = "UPDATE uso_material SET fk_material_uso_material = ?, fk_etapa_uso_material = ?, quantidade = ? WHERE id_uso_material = ?";
 
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -102,8 +102,8 @@ public class UsoMaterialController {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Material material = materialController.buscarPorId(rs.getInt("id_material"));
-                Etapa etapa = etapaController.buscarPorId(rs.getInt("id_etapa"));
+                Material material = materialController.buscarPorId(rs.getInt("fk_material_uso_material"));
+                Etapa etapa = etapaController.buscarPorId(rs.getInt("fk_etapa_uso_material"));
 
                 return new UsoMaterial(
                     rs.getInt("id_uso_material"),

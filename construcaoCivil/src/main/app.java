@@ -4,6 +4,8 @@ import controller.*;
 import model.*;
 import java.util.List;
 import java.util.Scanner;
+import java.sql.Date;
+
 
 public class app {
 
@@ -362,11 +364,13 @@ public class app {
                     System.out.print("Status: ");
                     String status = scanner.nextLine();
                     System.out.print("Data de Início (ex: 2025-05-10): ");
-                    String di = scanner.nextLine();
+                    String inicioStr = scanner.nextLine();
+                    Date dataInicio = Date.valueOf(inicioStr);
                     System.out.print("Data Fim Prevista (ex: 2025-06-15): ");
-                    String df = scanner.nextLine();
+                    String fimStr = scanner.nextLine();
+                    Date dataFim = Date.valueOf(fimStr);
 
-                    Etapa e = new Etapa(id, desc, status, di, df, projeto, prof);
+                    Etapa e = new Etapa(id, desc, status, dataInicio, dataFim , projeto, prof);
                     etapaController.adicionarEtapa(e);
                 }
 
@@ -399,13 +403,15 @@ public class app {
                     System.out.print("Nova data de início (" + e.getDataInicio() + "): ");
                     String diUp = scanner.nextLine();
                     if (!diUp.isBlank()) {
-                        e.setDataInicio(diUp);
+                        Date novaDataInicio = Date.valueOf(diUp);
+                        e.setDataInicio(novaDataInicio);
                     }
 
                     System.out.print("Nova data fim prevista (" + e.getDataFimPrevista() + "): ");
                     String dfUp = scanner.nextLine();
                     if (!dfUp.isBlank()) {
-                        e.setDataFimPrevista(dfUp);
+                        Date novaDataFim = Date.valueOf(dfUp);
+                        e.setDataFimPrevista(novaDataFim);
                     }
 
                     // Trocar Projeto (opcional)
