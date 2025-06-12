@@ -1,4 +1,5 @@
 
+
 package model;
 
 public class Cliente {
@@ -15,6 +16,14 @@ public class Cliente {
         this.cpfCnpj = cpfCnpj;
         this.telefone = telefone;
     }
+    
+    public Cliente(String nome, String tipoCliente, String cpfCnpj, String telefone) {
+    this.nome = nome;
+    this.tipoCliente = tipoCliente;
+    this.cpfCnpj = cpfCnpj;
+    this.telefone = telefone;
+}
+
 
     // Getters
     public int getIdCliente() {
