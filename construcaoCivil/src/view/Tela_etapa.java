@@ -6,6 +6,7 @@ import javax.swing.text.MaskFormatter;
 import java.awt.event.*;
 import java.text.ParseException;
 import java.util.Vector;
+import controller.EtapaController;
 
 public class Tela_etapa extends JFrame {
 
@@ -14,8 +15,14 @@ public class Tela_etapa extends JFrame {
     private JComboBox<String> cbStatus;
     private JTable tabela;
     private DefaultTableModel modelo;
+   
+   
 
     public Tela_etapa() {
+
+        
+        modelo = (DefaultTableModel) tabela.getModel();
+        carregarTabelaDoBanco();
         setTitle("Gerenciar Etapas");
         setSize(750, 520);
         setLocationRelativeTo(null);
@@ -154,6 +161,25 @@ public class Tela_etapa extends JFrame {
                 cbStatus.setSelectedItem(modelo.getValueAt(row, 4));
             }
         });
+        carregarTabelaDoBanco();
+    }
+
+    private void carregarTabelaDoBanco() {
+        // Limpa a tabela antes de adicionar os novos dados
+        modelo.setRowCount(0);
+
+        EtapaController controller = new EtapaController();
+        java.util.List<model.Etapa> lista = controller.listarEtapas();
+
+        for (model.Etapa etapa : lista) {
+            modelo.addRow(new Object[]{
+                etapa.getDescricao(),
+                (etapa.getProjeto() != null ? etapa.getProjeto().getNome() : ""), // Projeto (caso você tenha o nome no objeto Projeto)
+                etapa.getDataInicio(),
+                etapa.getDataFimPrevista(),
+                etapa.getStatus()
+            });
+        }
     }
 
     private void limparCampos() {
