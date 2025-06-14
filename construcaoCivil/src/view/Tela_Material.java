@@ -141,7 +141,24 @@ public class Tela_Material extends JFrame  {
                 txtPreco.setText((String) modelo.getValueAt(row, 3));
             }
         });
+    carregarMateriaisDoBanco();  
     }
+    private void carregarMateriaisDoBanco() {
+    MaterialController controller = new MaterialController();
+    List<Material> lista = controller.listarMateriais();
+
+    // Limpa a tabela antes de adicionar os dados
+    modelo.setRowCount(0);
+
+    for (Material m : lista) {
+        Vector<Object> linha = new Vector<>();
+        linha.add(m.getNome());
+        linha.add(m.getUnidadeMedida());
+        linha.add("N/A"); // Quantidade não está no model.Material, ajuste se necessário
+        linha.add(String.format("R$ %.2f", m.getPrecoUnitario()));
+        modelo.addRow(linha);
+    }
+}
 
     private void limparCampos() {
         txtNome.setText("");
