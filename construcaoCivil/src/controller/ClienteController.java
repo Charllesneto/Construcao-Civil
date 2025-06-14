@@ -4,7 +4,6 @@ package controller;
  *
  * @author david
  */
-
 import model.Cliente;
 import database.Conexao;
 import java.sql.*;
@@ -114,4 +113,23 @@ public class ClienteController {
         return null;
     }
 
+    public List<Object[]> listarClientesParaTela() {
+        List<Object[]> listaClientes = new ArrayList<>();
+        List<Cliente> clientes = listarClientes();  // Pega a lista de clientes com a função listarClientes()
+
+        // Verifique se a lista de clientes não está vazia ou nula
+        if (clientes != null && !clientes.isEmpty()) {
+            for (Cliente cliente : clientes) {
+                // Adiciona os dados no formato de array de objetos
+                listaClientes.add(new Object[]{
+                    cliente.getIdCliente(),
+                    cliente.getNome(),
+                    cliente.getCpfCnpj(),
+                    cliente.getTelefone()
+                });
+            }
+        }
+
+        return listaClientes;  // Agora retorna a lista corretamente
+    }
 }

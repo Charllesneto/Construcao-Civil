@@ -1,21 +1,29 @@
 package view;
 
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.*;
 import java.text.ParseException;
 import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
+import controller.ClienteController;
+
+
 
 public class tela_cliente extends JFrame {
 
+    private ClienteController clienteController;
     private JTextField txtNome;
     private JFormattedTextField txtCpf, txtTelefone; // Campos com máscara
     private JTable tabela;
     private DefaultTableModel modelo;
-
+    
     public tela_cliente() {
+        
+        clienteController = new ClienteController();  // Inicialize o controlador
+        
         setTitle("Gerenciar Clientes");
         setSize(600, 450);
         setLocationRelativeTo(null);
@@ -79,6 +87,7 @@ public class tela_cliente extends JFrame {
         add(btnVoltar);
 
         modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
         modelo.addColumn("Nome");
         modelo.addColumn("CPF");
         modelo.addColumn("Telefone");
@@ -144,4 +153,15 @@ public class tela_cliente extends JFrame {
         txtTelefone.setValue(null);
         tabela.clearSelection();
     }
+
+    private void preencherTabela() {
+        modelo.setRowCount(0); // Limpa a tabela
+
+        List<Object[]> listaClientes = clienteController.listarClientesParaTela(); // Usando o método alterado do controlador
+
+        for (Object[] clienteData : listaClientes) {
+            modelo.addRow(clienteData);  // Adiciona os dados formatados na tabela
+        }
+    }
+
 }
