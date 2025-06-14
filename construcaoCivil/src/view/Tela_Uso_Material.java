@@ -6,6 +6,8 @@ import javax.swing.text.NumberFormatter;
 import java.awt.event.*;
 import java.text.NumberFormat;
 import java.util.Vector;
+import controller.UsoMaterialController;
+import java.util.List;
 
 public class Tela_Uso_Material extends JFrame {
 
@@ -89,7 +91,13 @@ public class Tela_Uso_Material extends JFrame {
         add(scroll);
 
         setVisible(true);
+cannot find symbol
+  symbol:   class List
+  location: class Tela_Uso_Material
 
+Explict type can be replaced with 'var'
+----
+(Alt-Enter shows hints)
         // AÇÕES
         btnSalvar.addActionListener(e -> {
             Vector<String> linha = new Vector<>();
@@ -133,6 +141,27 @@ public class Tela_Uso_Material extends JFrame {
                 txtQuantidade.setText((String) modelo.getValueAt(row, 3));
             }
         });
+    }
+
+    private void carregarDadosNaTabela() {
+        UsoMaterialController controller = new UsoMaterialController();
+        List<Vector<Object>> lista = controller.listarUsos(); // lista já com os dados prontos para a tabela
+
+        for (Vector<Object> row : lista) {
+            modelo.addRow(row);
+        }    private void carregarDadosNaTabela() {
+        UsoMaterialController controller = new UsoMaterialController();
+        List<UsoMaterial> lista = controller.listarUsos();
+
+        for (UsoMaterial uso : lista) {
+            Vector<Object> row = new Vector<>();
+            row.add(uso.getProjeto());
+            row.add(uso.getEtapa());
+            row.add(uso.getMaterial());
+            row.add(uso.getQuantidade());
+            modelo.addRow(row);
+        }
+    }
     }
 
     private void limparCampos() {

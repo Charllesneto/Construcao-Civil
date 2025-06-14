@@ -1,4 +1,3 @@
-
 package controller;
 
 /**
@@ -12,7 +11,7 @@ import model.UsoMaterial;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-    
+
 public class UsoMaterialController {
 
     private MaterialController materialController = new MaterialController();
@@ -22,8 +21,7 @@ public class UsoMaterialController {
     public void adicionarUso(UsoMaterial uso) {
         String sql = "INSERT INTO uso_material (id_uso_material, fk_material_uso_material, fk_etapa_uso_material, quantidade) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, uso.getIdUsoMaterial());
             stmt.setInt(2, uso.getMaterial().getIdMaterial());
@@ -37,26 +35,23 @@ public class UsoMaterialController {
             System.err.println("Erro ao cadastrar uso de material: " + e.getMessage());
         }
     }
-     
+
     // método para listar os materiais usados faz uma consulta no banco e retorna um array com os objetos preenchidos pelos dados
-    
     public List<UsoMaterial> listarUsos() {
         List<UsoMaterial> usos = new ArrayList<>();
         String sql = "SELECT * FROM uso_material";
 
-        try (Connection conn = Conexao.conectar();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = Conexao.conectar(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 Material material = materialController.buscarPorId(rs.getInt("fk_material_uso_material"));
                 Etapa etapa = etapaController.buscarPorId(rs.getInt("fk_etapa_uso_material"));
 
                 UsoMaterial uso = new UsoMaterial(
-                    rs.getInt("id_uso_material"),
-                    material,
-                    etapa,
-                    rs.getDouble("quantidade")
+                        rs.getInt("id_uso_material"),
+                        material,
+                        etapa,
+                        rs.getDouble("quantidade")
                 );
                 usos.add(uso);
             }
@@ -67,14 +62,12 @@ public class UsoMaterialController {
 
         return usos;
     }
-    
+
     // metodo para atualizar os materiais ultilizados 
-    
     public boolean atualizarUso(UsoMaterial uso) {
         String sql = "UPDATE uso_material SET fk_material_uso_material = ?, fk_etapa_uso_material = ?, quantidade = ? WHERE id_uso_material = ?";
 
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, uso.getMaterial().getIdMaterial());
             stmt.setInt(2, uso.getEtapa().getIdEtapa());
@@ -89,14 +82,12 @@ public class UsoMaterialController {
             return false;
         }
     }
-    
+
     // metodo para buscar por ID um material em especifico
-    
-     public UsoMaterial buscarPorId(int idUso) {
+    public UsoMaterial buscarPorId(int idUso) {
         String sql = "SELECT * FROM uso_material WHERE id_uso_material = ?";
 
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idUso);
             ResultSet rs = stmt.executeQuery();
@@ -106,10 +97,10 @@ public class UsoMaterialController {
                 Etapa etapa = etapaController.buscarPorId(rs.getInt("fk_etapa_uso_material"));
 
                 return new UsoMaterial(
-                    rs.getInt("id_uso_material"),
-                    material,
-                    etapa,
-                    rs.getDouble("quantidade")
+                        rs.getInt("id_uso_material"),
+                        material,
+                        etapa,
+                        rs.getDouble("quantidade")
                 );
             }
 
@@ -119,24 +110,25 @@ public class UsoMaterialController {
 
         return null;
     }
-    public boolean removerUso(int idUsoMaterial) {
-    String sql = "DELETE FROM uso_material WHERE id_uso_material = ?";
-    try (Connection conn = Conexao.conectar();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        stmt.setInt(1, idUsoMaterial);
-        int linhasAfetadas = stmt.executeUpdate();
-        if (linhasAfetadas > 0) {
-            System.out.println("Uso de material removido com sucesso!");
-            return true;
-        } else {
-            System.out.println("Nenhum uso de material encontrado com ID " + idUsoMaterial);
+    public boolean removerUso(int idUsoMaterial) {
+        String sql = "DELETE FROM uso_material WHERE id_uso_material = ?";
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idUsoMaterial);
+            int linhasAfetadas = stmt.executeUpdate();
+            if (linhasAfetadas > 0) {
+                System.out.println("Uso de material removido com sucesso!");
+                return true;
+            } else {
+                System.out.println("Nenhum uso de material encontrado com ID " + idUsoMaterial);
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao remover uso de material: " + e.getMessage());
             return false;
         }
 
-    } catch (SQLException e) {
-        System.err.println("Erro ao remover uso de material: " + e.getMessage());
-        return false;
     }
-}
 }
