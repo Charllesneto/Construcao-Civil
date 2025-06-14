@@ -145,6 +145,7 @@ public class tela_cliente extends JFrame {
                 }
             }
         });
+    preencherTabela();     
     }
 
     private void limparCampos() {
