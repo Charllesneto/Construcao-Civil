@@ -16,7 +16,6 @@ public class Tela_Projeto extends JFrame {
     private DefaultTableModel modelo;
     private JButton btnSalvar, btnAlterar, btnExcluir, btnCancelar, btnVoltar;
 
-
     public Tela_Projeto() {
         setTitle("Gerenciar Projetos");
         setSize(700, 480);
@@ -68,10 +67,12 @@ public class Tela_Projeto extends JFrame {
 
         btnAlterar = new JButton("Alterar");
         btnAlterar.setBounds(130, 100, 100, 30);
+        btnAlterar.setEnabled(false);
         add(btnAlterar);
 
         btnExcluir = new JButton("Excluir");
         btnExcluir.setBounds(240, 100, 100, 30);
+        btnExcluir.setEnabled(false);
         add(btnExcluir);
 
         btnCancelar = new JButton("Cancelar");
@@ -136,6 +137,8 @@ public class Tela_Projeto extends JFrame {
                 txtCliente.setText((String) modelo.getValueAt(row, 1));
                 txtDataInicio.setText((String) modelo.getValueAt(row, 2));
                 txtOrcamento.setText((String) modelo.getValueAt(row, 3));
+                btnAlterar.setEnabled(true);
+                btnExcluir.setEnabled(true);
             }
         });
     }
@@ -146,5 +149,7 @@ public class Tela_Projeto extends JFrame {
         txtDataInicio.setValue(null);
         txtOrcamento.setText("");
         tabela.clearSelection();
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }
 }
