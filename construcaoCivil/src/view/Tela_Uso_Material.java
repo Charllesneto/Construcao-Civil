@@ -19,6 +19,7 @@ public class Tela_Uso_Material extends JFrame {
     private JFormattedTextField txtQuantidade;
     private JTable tabela;
     private DefaultTableModel modelo;
+    private JButton btnAlterar, btnExcluir;
 
     public Tela_Uso_Material() {
         setTitle("Gerenciar Uso de Materiais");
@@ -67,16 +68,20 @@ public class Tela_Uso_Material extends JFrame {
         btnSalvar.setBounds(20, 100, 100, 30);
         add(btnSalvar);
 
-        JButton btnAlterar = new JButton("Alterar");
+        btnAlterar = new JButton("Alterar");
         btnAlterar.setBounds(130, 100, 100, 30);
+        btnAlterar.setVisible(false);
         add(btnAlterar);
 
-        JButton btnExcluir = new JButton("Excluir");
+        btnExcluir = new JButton("Excluir");
         btnExcluir.setBounds(240, 100, 100, 30);
+        btnExcluir.setVisible(false);
         add(btnExcluir);
 
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.setBounds(350, 100, 100, 30);
+        btnAlterar.setVisible(false);
+        btnExcluir.setVisible(false);
         add(btnCancelar);
 
         JButton btnVoltar = new JButton("Voltar");
@@ -119,7 +124,7 @@ public class Tela_Uso_Material extends JFrame {
                 modelo.setValueAt(txtProjeto.getText(), row, 0);
                 modelo.setValueAt(txtEtapa.getText(), row, 1);
                 modelo.setValueAt(txtMaterial.getText(), row, 2);
-                modelo.setValueAt(txtQuantidade.getText(), row, 3);
+                modelo.setValueAt(txtQuantidade.getValue(), row, 3);
                 limparCampos();
             }
         });
@@ -131,18 +136,23 @@ public class Tela_Uso_Material extends JFrame {
         tabela.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 int row = tabela.getSelectedRow();
-                txtProjeto.setText((String) modelo.getValueAt(row, 0));
-                txtEtapa.setText((String) modelo.getValueAt(row, 1));
-                txtMaterial.setText((String) modelo.getValueAt(row, 2));
-                txtQuantidade.setText((String) modelo.getValueAt(row, 3));
+                if (row >= 0) {
+                    txtProjeto.setText((String) modelo.getValueAt(row, 0));
+                    txtEtapa.setText((String) modelo.getValueAt(row, 1));
+                    txtMaterial.setText((String) modelo.getValueAt(row, 2));
+                    txtQuantidade.setValue(modelo.getValueAt(row, 3));
+
+                    btnAlterar.setVisible(true);
+                    btnExcluir.setVisible(true);
+                }
             }
         });
-        
+
         carregarDadosNaTabela();
         setVisible(true);
     }
-    
-        private void carregarDadosNaTabela() {
+
+    private void carregarDadosNaTabela() {
         modelo.setRowCount(0);
         UsoMaterialController controller = new UsoMaterialController();
         List<UsoMaterial> lista = controller.listarUsos();
@@ -158,14 +168,13 @@ public class Tela_Uso_Material extends JFrame {
         }
     }
 
-
     private void limparCampos() {
         txtProjeto.setText("");
         txtEtapa.setText("");
         txtMaterial.setText("");
         txtQuantidade.setValue(null);
         tabela.clearSelection();
+        btnAlterar.setVisible(false);
+        btnExcluir.setVisible(false);
     }
-                
- 
 }
