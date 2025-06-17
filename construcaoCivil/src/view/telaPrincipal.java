@@ -79,7 +79,7 @@ public class telaPrincipal extends JFrame {
 
         btnSair.addActionListener(e -> {
             dispose(); // Fecha o programa
-        });
+        }); 
 
         setVisible(true);
     }
