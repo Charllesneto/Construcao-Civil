@@ -1,17 +1,20 @@
 package view;
 
+import controller.ProjetoController;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.*;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Vector;
+import model.Projeto;
 
 public class Tela_Projeto extends JFrame {
 
     private JTextField txtNomeProjeto, txtCliente;
     private JFormattedTextField txtDataInicio;
-    private JTextField txtOrcamento;
+    private JFormattedTextField txtDataFim;
     private JTable tabela;
     private DefaultTableModel modelo;
     private JButton btnSalvar, btnAlterar, btnExcluir, btnCancelar, btnVoltar;
@@ -53,13 +56,19 @@ public class Tela_Projeto extends JFrame {
         txtDataInicio.setBounds(100, 60, 150, 25);
         add(txtDataInicio);
 
-        JLabel lblOrcamento = new JLabel("Orçamento:");
-        lblOrcamento.setBounds(270, 60, 80, 25);
-        add(lblOrcamento);
+        JLabel lblDataFim = new JLabel("Data Fim Prevista:");
+        lblDataFim.setBounds(270, 60, 120, 25);
+        add(lblDataFim);
 
-        txtOrcamento = new JTextField();
-        txtOrcamento.setBounds(350, 60, 150, 25);
-        add(txtOrcamento);
+        try {
+            MaskFormatter dataMask = new MaskFormatter("##/##/####");
+            dataMask.setPlaceholderCharacter('_');
+            txtDataFim = new JFormattedTextField(dataMask);
+        } catch (ParseException e) {
+            txtDataFim = new JFormattedTextField();
+        }
+        txtDataFim.setBounds(400, 60, 150, 25);
+        add(txtDataFim);
 
         btnSalvar = new JButton("Salvar");
         btnSalvar.setBounds(20, 100, 100, 30);
@@ -87,7 +96,7 @@ public class Tela_Projeto extends JFrame {
         modelo.addColumn("Nome");
         modelo.addColumn("Cliente");
         modelo.addColumn("Data Início");
-        modelo.addColumn("Orçamento");
+        modelo.addColumn("Data Fim Prevista");
 
         tabela = new JTable(modelo);
         JScrollPane scroll = new JScrollPane(tabela);
@@ -95,6 +104,7 @@ public class Tela_Projeto extends JFrame {
         add(scroll);
 
         setVisible(true);
+        carregarDadosNaTabela();
 
         // AÇÕES
         btnSalvar.addActionListener(e -> {
@@ -102,9 +112,11 @@ public class Tela_Projeto extends JFrame {
             linha.add(txtNomeProjeto.getText());
             linha.add(txtCliente.getText());
             linha.add(txtDataInicio.getText());
-            linha.add(txtOrcamento.getText());
+            linha.add(txtDataFim.getText()
+            );
             modelo.addRow(linha);
             limparCampos();
+            carregarDadosNaTabela();
         });
 
         btnExcluir.addActionListener(e -> {
@@ -112,6 +124,7 @@ public class Tela_Projeto extends JFrame {
             if (row >= 0) {
                 modelo.removeRow(row);
                 limparCampos();
+                carregarDadosNaTabela();
             }
         });
 
@@ -121,8 +134,9 @@ public class Tela_Projeto extends JFrame {
                 modelo.setValueAt(txtNomeProjeto.getText(), row, 0);
                 modelo.setValueAt(txtCliente.getText(), row, 1);
                 modelo.setValueAt(txtDataInicio.getText(), row, 2);
-                modelo.setValueAt(txtOrcamento.getText(), row, 3);
+                modelo.setValueAt(txtDataFim.getText(), row, 3);
                 limparCampos();
+                carregarDadosNaTabela();
             }
         });
 
@@ -136,18 +150,33 @@ public class Tela_Projeto extends JFrame {
                 txtNomeProjeto.setText((String) modelo.getValueAt(row, 0));
                 txtCliente.setText((String) modelo.getValueAt(row, 1));
                 txtDataInicio.setText((String) modelo.getValueAt(row, 2));
-                txtOrcamento.setText((String) modelo.getValueAt(row, 3));
+                txtDataFim.setText((String) modelo.getValueAt(row, 3));
                 btnAlterar.setEnabled(true);
                 btnExcluir.setEnabled(true);
             }
         });
     }
 
+    private void carregarDadosNaTabela() {
+        modelo.setRowCount(0);
+        ProjetoController controller = new ProjetoController();
+        List<Projeto> lista = controller.listarProjetos();
+
+        for (Projeto projeto : lista) {
+            Vector<Object> linha = new Vector<>();
+            linha.add(projeto.getNome());
+            linha.add(projeto.getCliente().getNome());
+            linha.add(projeto.getDataInicio());
+            linha.add(projeto.getDataFimPrevista());
+            modelo.addRow(linha);
+        }
+    }
+
     private void limparCampos() {
         txtNomeProjeto.setText("");
         txtCliente.setText("");
         txtDataInicio.setValue(null);
-        txtOrcamento.setText("");
+        txtDataFim.setValue(null);
         tabela.clearSelection();
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
