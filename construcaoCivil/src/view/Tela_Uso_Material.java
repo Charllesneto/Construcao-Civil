@@ -101,6 +101,11 @@ public class Tela_Uso_Material extends JFrame {
 
         // AÇÕES
         btnSalvar.addActionListener(e -> {
+            if (txtProjeto.getText().isEmpty() || txtEtapa.getText().isEmpty()
+                    || txtMaterial.getText().isEmpty() || txtQuantidade.getValue() == null) {
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             Vector<String> linha = new Vector<>();
             linha.add(txtProjeto.getText());
             linha.add(txtEtapa.getText());
