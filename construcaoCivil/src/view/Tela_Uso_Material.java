@@ -6,8 +6,12 @@ import javax.swing.text.NumberFormatter;
 import java.awt.event.*;
 import java.text.NumberFormat;
 import java.util.Vector;
-import controller.UsoMaterialController;
 import java.util.List;
+
+import controller.UsoMaterialController;
+import model.UsoMaterial;
+import model.Material;
+import model.Etapa;
 
 public class Tela_Uso_Material extends JFrame {
 
@@ -90,14 +94,6 @@ public class Tela_Uso_Material extends JFrame {
         scroll.setBounds(20, 150, 700, 280);
         add(scroll);
 
-        setVisible(true);
-cannot find symbol
-  symbol:   class List
-  location: class Tela_Uso_Material
-
-Explict type can be replaced with 'var'
-----
-(Alt-Enter shows hints)
         // AÇÕES
         btnSalvar.addActionListener(e -> {
             Vector<String> linha = new Vector<>();
@@ -141,28 +137,27 @@ Explict type can be replaced with 'var'
                 txtQuantidade.setText((String) modelo.getValueAt(row, 3));
             }
         });
+        
+        carregarDadosNaTabela();
+        setVisible(true);
     }
-
-    private void carregarDadosNaTabela() {
-        UsoMaterialController controller = new UsoMaterialController();
-        List<Vector<Object>> lista = controller.listarUsos(); // lista já com os dados prontos para a tabela
-
-        for (Vector<Object> row : lista) {
-            modelo.addRow(row);
-        }    private void carregarDadosNaTabela() {
+    
+        private void carregarDadosNaTabela() {
+        modelo.setRowCount(0);
         UsoMaterialController controller = new UsoMaterialController();
         List<UsoMaterial> lista = controller.listarUsos();
 
         for (UsoMaterial uso : lista) {
             Vector<Object> row = new Vector<>();
-            row.add(uso.getProjeto());
-            row.add(uso.getEtapa());
-            row.add(uso.getMaterial());
+            String nomeProjeto = (uso.getEtapa().getProjeto() != null) ? uso.getEtapa().getProjeto().getNome() : "Desconhecido";
+            row.add(nomeProjeto);
+            row.add(uso.getEtapa().getDescricao());
+            row.add(uso.getMaterial().getNome());
             row.add(uso.getQuantidade());
             modelo.addRow(row);
         }
     }
-    }
+
 
     private void limparCampos() {
         txtProjeto.setText("");
@@ -171,4 +166,6 @@ Explict type can be replaced with 'var'
         txtQuantidade.setValue(null);
         tabela.clearSelection();
     }
+                
+ 
 }
