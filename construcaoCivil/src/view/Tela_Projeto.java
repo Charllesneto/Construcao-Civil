@@ -14,6 +14,8 @@ public class Tela_Projeto extends JFrame {
     private JTextField txtOrcamento;
     private JTable tabela;
     private DefaultTableModel modelo;
+    private JButton btnSalvar, btnAlterar, btnExcluir, btnCancelar, btnVoltar;
+
 
     public Tela_Projeto() {
         setTitle("Gerenciar Projetos");
@@ -60,23 +62,23 @@ public class Tela_Projeto extends JFrame {
         txtOrcamento.setBounds(350, 60, 150, 25);
         add(txtOrcamento);
 
-        JButton btnSalvar = new JButton("Salvar");
+        btnSalvar = new JButton("Salvar");
         btnSalvar.setBounds(20, 100, 100, 30);
         add(btnSalvar);
 
-        JButton btnAlterar = new JButton("Alterar");
+        btnAlterar = new JButton("Alterar");
         btnAlterar.setBounds(130, 100, 100, 30);
         add(btnAlterar);
 
-        JButton btnExcluir = new JButton("Excluir");
+        btnExcluir = new JButton("Excluir");
         btnExcluir.setBounds(240, 100, 100, 30);
         add(btnExcluir);
 
-        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar = new JButton("Cancelar");
         btnCancelar.setBounds(350, 100, 100, 30);
         add(btnCancelar);
 
-        JButton btnVoltar = new JButton("Voltar");
+        btnVoltar = new JButton("Voltar");
         btnVoltar.setBounds(460, 100, 100, 30);
         add(btnVoltar);
 
