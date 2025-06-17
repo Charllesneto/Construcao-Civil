@@ -1,5 +1,6 @@
 package view;
 
+import Telas_Aux.Tela_aux2;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
@@ -13,7 +14,7 @@ public class Tela_Proficional extends JFrame {
     private JFormattedTextField txtTelefone; // Campo com máscara
     private JTable tabela;
     private DefaultTableModel modelo;
-
+    
     public Tela_Proficional() {
         setTitle("Gerenciar Profissionais");
         setSize(600, 450);

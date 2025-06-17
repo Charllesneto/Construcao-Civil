@@ -1,5 +1,6 @@
 package view;
 
+import Telas_Aux.Tela_aux2;
 import controller.ProjetoController;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -18,8 +19,12 @@ public class Tela_Projeto extends JFrame {
     private JTable tabela;
     private DefaultTableModel modelo;
     private JButton btnSalvar, btnAlterar, btnExcluir, btnCancelar, btnVoltar;
+    private JTextField txtProfissional;
+    private int idProfissionalSelecionado = -1;
+    private int idClienteSelecionado = -1;
 
     public Tela_Projeto() {
+
         setTitle("Gerenciar Projetos");
         setSize(700, 480);
         setLocationRelativeTo(null);
@@ -69,6 +74,20 @@ public class Tela_Projeto extends JFrame {
         }
         txtDataFim.setBounds(400, 60, 150, 25);
         add(txtDataFim);
+
+        JButton btnSelecionarProfissional = new JButton("Selecionar Profissional");
+        btnSelecionarProfissional.setBounds(440, 90, 200, 25);
+        add(btnSelecionarProfissional);
+        btnSelecionarProfissional.addActionListener(e -> {
+            new Tela_aux2((id, nome) -> {
+                txtProfissional.setText(nome);
+                idProfissionalSelecionado = id; // variável auxiliar oculta
+            });
+        });
+
+        JButton btnSelecionarCliente = new JButton("Selecionar Cliente");
+        btnSelecionarCliente.setBounds(440, 50, 200, 25);
+        add(btnSelecionarCliente);
 
         btnSalvar = new JButton("Salvar");
         btnSalvar.setBounds(20, 100, 100, 30);
